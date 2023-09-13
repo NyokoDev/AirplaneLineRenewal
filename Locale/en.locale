@@ -1,0 +1,4 @@
+TRANSPORT_LINE_Airplane, "Plane"
+TRANSPORT_LINE_PATTERN_Airplane, "Air Line {0}"
+TRANSPORT_TITLE_Airplane, "Air Line Tool"
+TRANSPORT_DESC_Airplane, "Draw air lines by clicking on airports. Draw the line from the departure airport to the terminal airport and back as an air line needs to be circular."
