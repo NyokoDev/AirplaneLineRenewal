@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirplaneLineRenewal", "AirplaneLineRenewal.csproj", "{3F345C94-6B63-4D8F-8A12-E1EBDAE831F3}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AlgernonCommonsPatchingShared", "..\AlgernonCommons\AlgernonCommonsPatchingShared.shproj", "{25AEF446-6F0D-43A8-BB84-D1306789B68C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\AlgernonCommons\AlgernonCommonsPatchingShared.projitems*{25aef446-6f0d-43a8-bb84-d1306789b68c}*SharedItemsImports = 13
+		..\AlgernonCommons\AlgernonCommonsPatchingShared.projitems*{3f345c94-6b63-4d8f-8a12-e1ebdae831f3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = TransportLinesManager.csproj

@@ -8,7 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AlgernonCommons;
 using UnityEngine;
+using AlgernonCommons.UI;
 
 [assembly: AssemblyVersion("1.2.0.*")]
 namespace Klyte.AirplaneLineTool
@@ -59,12 +61,22 @@ namespace Klyte.AirplaneLineTool
         #region LoadingExtensionBase
         public override void OnLevelLoaded(LoadMode mode)
         {
-            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
-                return;
-
             InstallLocalization();
-            _planeGameObject = CreateTransportLineGo("Airplane", "PublicTransportPlane");
+            _planeGameObject = CreateTransportLineGo("Airplane", "PublicTransportAirportArea");
         }
+
+        private static UITextureAtlas GetAtlas(string name)
+        {
+            UITextureAtlas[] atlases = Resources.FindObjectsOfTypeAll(typeof(UITextureAtlas)) as UITextureAtlas[];
+            for (int i = 0; i < atlases.Length; i++)
+            {
+                if (atlases[i].name == name)
+                    return atlases[i];
+            }
+            return UIView.GetAView().defaultAtlas;
+        }
+
+        UITextureAtlas ToolTipAtlas = GetAtlas("tooltiplargestand");
 
         public override void OnLevelUnloading()
         {
@@ -132,38 +144,29 @@ namespace Klyte.AirplaneLineTool
             GameObject result = null;
             try
             {
-                var busTransportInfo2 = PrefabCollection<TransportInfo>.FindLoaded("Airplane");
-                if (busTransportInfo2 == null)
-                {
-                    Debug.LogError("Airplane transport info not found.");
-                }
-                else
-                {
-                    Debug.Log("Airplane transport info found.");
-                }
 
-                var planeLinePrefab2 = PrefabCollection<TransportInfo>.FindLoaded(transportInfoName);
-                if (planeLinePrefab2 == null)
-                {
-                    Debug.LogError("Transport prefab not found.");
-                }
-                else
-                {
-                    Debug.Log("Transport prefab found.");
-                }
 
-                // Rest of your code...
                 var busTransportInfo = PrefabCollection<TransportInfo>.FindLoaded("Bus");
+
+
 
                 var planeLinePrefab = PrefabCollection<TransportInfo>.FindLoaded(transportInfoName);
                 planeLinePrefab.m_lineMaterial2 = GameObject.Instantiate(busTransportInfo.m_lineMaterial2);
                 planeLinePrefab.m_lineMaterial2.shader = planeLinePrefab.m_pathMaterial2.shader;
+                planeLinePrefab.m_Atlas = ToolTipAtlas;
+                planeLinePrefab.m_Thumbnail = "UIFilterPlaneHubFocused";
+                planeLinePrefab.m_InfoTooltipAtlas = ToolTipAtlas;
+                planeLinePrefab.m_InfoTooltipThumbnail = "tooltipmediumstand";
+
+
+
                 planeLinePrefab.m_lineMaterial = GameObject.Instantiate(busTransportInfo.m_lineMaterial);
                 planeLinePrefab.m_lineMaterial.shader = planeLinePrefab.m_pathMaterial.shader;
                 planeLinePrefab.m_prefabDataLayer = 0;
-                planeLinePrefab.m_class = busTransportInfo.m_class;
 
-                // Workaround for button/panel bug when you return to the main menu and then load a map again.
+
+
+                // Workaround for button/panel bug when you return to main menu and then load a map again.
                 Transform scrollPanel = null;
                 PublicTransportPanel transportPanel = null;
                 var items = GameObject.FindObjectsOfType<PublicTransportPanel>();
@@ -184,14 +187,14 @@ namespace Klyte.AirplaneLineTool
                 // Find the newly created button and assign it to the return value so we can destroy it on level unload.
                 result = scrollPanel.Find(transportInfoName).gameObject;
 
-                GlobalVariables.CodeLogger.Log(transportInfoName + " line button successfully created.");
+               
             }
             catch (Exception e)
             {
-                GlobalVariables.CodeLogger.Log("Couldn't create " + transportInfoName + " line button. " + e.Message + Environment.NewLine + e.StackTrace + Environment.NewLine);
-                GlobalVariables.CodeLogger.ExportLogToFile();
+                
             }
             return result;
         }
     }
+
 }
