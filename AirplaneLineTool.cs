@@ -153,10 +153,27 @@ namespace Klyte.AirplaneLineTool
                 var planeLinePrefab = PrefabCollection<TransportInfo>.FindLoaded(transportInfoName);
                 planeLinePrefab.m_lineMaterial2 = GameObject.Instantiate(busTransportInfo.m_lineMaterial2);
                 planeLinePrefab.m_lineMaterial2.shader = planeLinePrefab.m_pathMaterial2.shader;
-                planeLinePrefab.m_Atlas = ToolTipAtlas;
-                planeLinePrefab.m_Thumbnail = "UIFilterPlaneHubFocused";
-                planeLinePrefab.m_InfoTooltipAtlas = ToolTipAtlas;
-                planeLinePrefab.m_InfoTooltipThumbnail = "tooltipmediumstand";
+                if (ToolTipAtlas != null)
+                {
+                    planeLinePrefab.m_Atlas = ToolTipAtlas;
+                }
+
+                if (planeLinePrefab != null)
+                {
+                    planeLinePrefab.m_Thumbnail = "UIFilterPlaneHubFocused";
+                    planeLinePrefab.m_InfoTooltipAtlas = ToolTipAtlas;
+                }
+
+                if (ToolTipAtlas != null)
+                {
+                    planeLinePrefab.m_InfoTooltipAtlas = ToolTipAtlas;
+                }
+
+                if (planeLinePrefab != null)
+                {
+                    planeLinePrefab.m_InfoTooltipThumbnail = "tooltipmediumstand";
+                }
+
 
 
 
