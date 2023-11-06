@@ -12,7 +12,7 @@ using AlgernonCommons;
 using UnityEngine;
 using AlgernonCommons.UI;
 
-[assembly: AssemblyVersion("1.2.0.*")]
+[assembly: AssemblyVersion("1.3.0")]
 namespace Klyte.AirplaneLineTool
 {
     public class AirplaneLineToolMod : LoadingExtensionBase, IUserMod
