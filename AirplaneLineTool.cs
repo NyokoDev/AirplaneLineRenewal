@@ -19,6 +19,8 @@ namespace Klyte.AirplaneLineTool
     {
         private static bool _localizationInitialized = false;
 
+        
+
         public static string version
         {
             get
@@ -64,19 +66,6 @@ namespace Klyte.AirplaneLineTool
             InstallLocalization();
             _planeGameObject = CreateTransportLineGo("Airplane", "PublicTransportAirportArea");
         }
-
-        private static UITextureAtlas GetAtlas(string name)
-        {
-            UITextureAtlas[] atlases = Resources.FindObjectsOfTypeAll(typeof(UITextureAtlas)) as UITextureAtlas[];
-            for (int i = 0; i < atlases.Length; i++)
-            {
-                if (atlases[i].name == name)
-                    return atlases[i];
-            }
-            return UIView.GetAView().defaultAtlas;
-        }
-
-        UITextureAtlas ToolTipAtlas = GetAtlas("tooltiplargestand");
 
         public override void OnLevelUnloading()
         {
@@ -153,26 +142,16 @@ namespace Klyte.AirplaneLineTool
                 var planeLinePrefab = PrefabCollection<TransportInfo>.FindLoaded(transportInfoName);
                 planeLinePrefab.m_lineMaterial2 = GameObject.Instantiate(busTransportInfo.m_lineMaterial2);
                 planeLinePrefab.m_lineMaterial2.shader = planeLinePrefab.m_pathMaterial2.shader;
-                if (ToolTipAtlas != null)
-                {
-                    planeLinePrefab.m_Atlas = ToolTipAtlas;
-                }
+               
+               
+                    planeLinePrefab.m_Thumbnail = busTransportInfo.m_Thumbnail;
+                 
+              
 
-                if (planeLinePrefab != null)
-                {
-                    planeLinePrefab.m_Thumbnail = "UIFilterPlaneHubFocused";
-                    planeLinePrefab.m_InfoTooltipAtlas = ToolTipAtlas;
-                }
+               
 
-                if (ToolTipAtlas != null)
-                {
-                    planeLinePrefab.m_InfoTooltipAtlas = ToolTipAtlas;
-                }
-
-                if (planeLinePrefab != null)
-                {
-                    planeLinePrefab.m_InfoTooltipThumbnail = "tooltipmediumstand";
-                }
+                    planeLinePrefab.m_InfoTooltipThumbnail = busTransportInfo.m_InfoTooltipThumbnail;
+                
 
 
 
